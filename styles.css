@@ -1,0 +1,123 @@
+@font-face {
+    font-family: sanspro;
+    src: url('sanspro.ttf');
+}
+
+@font-face {
+    font-family: quiksand;
+    src: url('quiksand.ttf');
+}
+
+body {
+    background-color: rgb(114, 215, 224);
+    border: 0;
+    margin: 0;
+    padding: 0;
+}
+
+.photoCard {
+    display: inline-block;
+    background-color: white;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    padding: 20px;
+    margin: 20px;
+    text-align: center;
+    width: auto;
+
+}
+
+@media (max-width: 800px) {
+
+    #weatherResults{
+        display: block;
+        width: 80%;
+        background-color: white;
+        padding: 20px;
+        margin: auto;
+        justify-content: center;
+        text-align: center;
+        box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    }
+}
+
+@media (min-width: 800px) {
+    .photoCard {
+        display: block;
+        width: 50%;
+        background-color: white;
+        padding: 20px;
+        margin: auto;
+        justify-content: center;
+        text-align: center;
+        box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    }
+}
+
+
+
+#images {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    width: auto;
+}
+
+form {
+    font-size: 30px;
+    font-family: quiksand;
+    text-align: center;
+    background-color: white;
+    margin-bottom: 20px;
+    padding: 10px;
+}
+
+label {
+    margin: auto;
+}
+
+input {
+    margin: auto;
+}
+
+#submitButtom {
+    font-family: quiksand;
+}
+
+
+
+
+
+h2 {
+    font-family: sanspro;
+}
+
+h3 {
+    font-family: sanspro;
+    display: block;
+    font-weight: normal;
+    font-size: 50px;
+    margin: 10px;
+
+}
+
+p {
+    font-size: 20px;
+    padding: 0px 10px;
+    display: inline-block;
+    font-family: sanspro;
+    margin: 10px;
+
+}
+
+img {
+    width: 20%;
+    margin: 5px;
+    padding: 0;
+    display: inline-block;
+    vertical-align: middle;
+}
+
+h4 {
+    font-size: 10px;
+    font-family: sanspro;
+}
