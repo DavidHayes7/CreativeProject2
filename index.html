@@ -10,45 +10,38 @@
 
     <form>
         <label>
-            Search for a space picture
+            Search For A Space Picture
         </label>
         <div>
             <input id="searchTerm" type="text"></input>
-            <input id="submitButton" style="font-family: quiksand" type="submit" value="Button (press it)"></input>
+            <input id="submitButton" style="font-family: quiksand" type="submit" value="Search"></input>
         </div>
     </form>
 
 
     <!--<div class="searchResults">-->
-        <div id="images"></div>
+    <div id="images"></div>
     <!--</div>-->
-
+    <footer>
+        <button id="loadMore">
+            Load More Images
+        </button>
+    </footer>
 
 
     <script>
-        document.getElementById("submitButton").addEventListener("click", function(event) {
-            event.preventDefault();
-            document.getElementById('images').innerHTML = ""
-            // let b = { "collection": { "version": "1.0", "href": "http://images-api.nasa.gov/search?q=Proxima&media_type=image", "items": [{ "href": "https://images-assets.nasa.gov/image/GSFC_20171208_Archive_e000214/collection.json", "data": [{ "album": ["Test"], "center": "GSFC", "title": "Hubble's Best Image of Alpha Centauri A and B", "keywords": ["Hubble's Best Image of Alpha Centauri A and B", "alphacentauri"], "location": "Greenbelt, MD", "nasa_id": "GSFC_20171208_Archive_e000214", "date_created": "2017-12-08T00:00:00Z", "media_type": "image", "description": "The closest star system to the Earth is the famous Alpha Centauri group. Located in the constellation of Centaurus (The Centaur), at a distance of 4.3 light-years, this system is made up of the binary formed by the stars Alpha Centauri A and Alpha Centauri B, plus the faint red dwarf Alpha Centauri C, also known as Proxima Centauri. This NASA/ESA Hubble Space Telescope has given us this stunning view of the bright Alpha Centauri A (on the left) and Alpha Centauri B (on the right), shining like huge cosmic headlamps in the dark. The image was captured by the Wide-Field and Planetary Camera 2 (WFPC2). WFPC2 was Hubble’s most used instrument for the first 13 years of the space telescope’s life, being replaced in 2009 by Wide-Field Camera 3 (WFC3) during Servicing Mission 4. This portrait of Alpha Centauri was produced by observations carried out at optical and near-infrared wavelengths. Compared to the sun, Alpha Centauri A is of the same stellar type, G2, and slightly bigger, while Alpha Centauri B, a K1-type star, is slightly smaller. They orbit a common center of gravity once every 80 years, with a minimum distance of about 11 times the distance between Earth and the sun. Because these two stars are, together with their sibling Proxima Centauri, the closest to Earth, they are among the best studied by astronomers. And they are also among the prime targets in the hunt for habitable exoplanets. Using the European Space Organization's HARPS instrument, astronomers already discovered a planet orbiting Alpha Centauri B. Then on Aug. 24, 2016, astronomers announced the intriguing discovery of a nearly Earth-sized planet in the habitable zone orbiting the star Proxima Centauri Image credit: ESA/NASA " }], "links": [{ "href": "https://images-assets.nasa.gov/image/GSFC_20171208_Archive_e000214/GSFC_20171208_Archive_e000214~thumb.jpg", "rel": "preview", "render": "image" }] }], "metadata": { "total_hits": 1 } } };
-
-            // console.log(b.collection.items[0].href);
-            // fetch(b.collection.items[0].href)
-            //     .then(function(pic){
-            //         let cool = pic[0]
-            //         console.log(pic[0])
-            //         document.getElementById('spacePic').src=cool;
-            //     });
-
-            let url = "https://images-api.nasa.gov/search?q=" + document.getElementById('searchTerm').value + "&media_type=image"
-            let link = "";
-            fetch(url)
+        moreResults = 10;
+        function loadImages() {
+                let url = "https://images-api.nasa.gov/search?q=" + document.getElementById('searchTerm').value + "&media_type=image"
+                let link = "";
+                fetch(url)
                 .then(function(response) {
 
                     return response.json();
                 }).then(function(json) {
                     console.log(json);
-                    moreResults = 10;
-                    for (i = 0; i < json.collection.items.length && i < moreResults; i++) {
+                    
+                    for (i = moreResults-10; i < json.collection.items.length && i < moreResults; i++) {
                         link = json.collection.items[i].href;
 
                         // if (link.protocol !== "https:") {
@@ -72,17 +65,42 @@
                                 let x = document.createTextNode("<img src=\"" + aoeu[0] + "\">")
                                 e.appendChild(x)
                                 // document.querySelector('#images').innerHTML("<img src=\"" + aoeu[0] + "\">");
-                                document.getElementById('images').innerHTML += "<div class=\"photoCard\"><img src=\"" + aoeu[0] + "\"></div>"
+                                document.getElementById('images').innerHTML += "<div class=\"photoCard\"><a href=" + aoeu[0] + "><img src=\"" + aoeu[0] + "\"></a></div>"
                                 //document.getElementById('spacePic').src = images //aoeu.collection.items[0].links[0].href;
                             })
                     }
                 })
 
 
+            }
+            
+        document.getElementById("submitButton").addEventListener("click", function(event) {
+            event.preventDefault();
 
+            document.getElementById('images').innerHTML = ""
+            loadImages();
+            // let b = { "collection": { "version": "1.0", "href": "http://images-api.nasa.gov/search?q=Proxima&media_type=image", "items": [{ "href": "https://images-assets.nasa.gov/image/GSFC_20171208_Archive_e000214/collection.json", "data": [{ "album": ["Test"], "center": "GSFC", "title": "Hubble's Best Image of Alpha Centauri A and B", "keywords": ["Hubble's Best Image of Alpha Centauri A and B", "alphacentauri"], "location": "Greenbelt, MD", "nasa_id": "GSFC_20171208_Archive_e000214", "date_created": "2017-12-08T00:00:00Z", "media_type": "image", "description": "The closest star system to the Earth is the famous Alpha Centauri group. Located in the constellation of Centaurus (The Centaur), at a distance of 4.3 light-years, this system is made up of the binary formed by the stars Alpha Centauri A and Alpha Centauri B, plus the faint red dwarf Alpha Centauri C, also known as Proxima Centauri. This NASA/ESA Hubble Space Telescope has given us this stunning view of the bright Alpha Centauri A (on the left) and Alpha Centauri B (on the right), shining like huge cosmic headlamps in the dark. The image was captured by the Wide-Field and Planetary Camera 2 (WFPC2). WFPC2 was Hubble’s most used instrument for the first 13 years of the space telescope’s life, being replaced in 2009 by Wide-Field Camera 3 (WFC3) during Servicing Mission 4. This portrait of Alpha Centauri was produced by observations carried out at optical and near-infrared wavelengths. Compared to the sun, Alpha Centauri A is of the same stellar type, G2, and slightly bigger, while Alpha Centauri B, a K1-type star, is slightly smaller. They orbit a common center of gravity once every 80 years, with a minimum distance of about 11 times the distance between Earth and the sun. Because these two stars are, together with their sibling Proxima Centauri, the closest to Earth, they are among the best studied by astronomers. And they are also among the prime targets in the hunt for habitable exoplanets. Using the European Space Organization's HARPS instrument, astronomers already discovered a planet orbiting Alpha Centauri B. Then on Aug. 24, 2016, astronomers announced the intriguing discovery of a nearly Earth-sized planet in the habitable zone orbiting the star Proxima Centauri Image credit: ESA/NASA " }], "links": [{ "href": "https://images-assets.nasa.gov/image/GSFC_20171208_Archive_e000214/GSFC_20171208_Archive_e000214~thumb.jpg", "rel": "preview", "render": "image" }] }], "metadata": { "total_hits": 1 } } };
+
+            // console.log(b.collection.items[0].href);
+            // fetch(b.collection.items[0].href)
+            //     .then(function(pic){
+            //         let cool = pic[0]
+            //         console.log(pic[0])
+            //         document.getElementById('spacePic').src=cool;
+            //     });
+            
             //https://api.nasa.gov/planetary/apod?api_key=QdxDtPGszABFMaXHt7iSO0GSUa0cg8Z6sdjc5mFr-
             //
         })
+        
+        document.getElementById("loadMore").addEventListener("click", function(event) {
+            event.preventDefault();
+            moreResults += 10;
+            loadImages();
+            
+        })
+        
+        
     </script>
 </body>
 
